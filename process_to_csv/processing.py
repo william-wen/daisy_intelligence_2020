@@ -97,14 +97,15 @@ def process_csv(obj, row_num, df):
     products.sort(key=len, reverse=True)
 
     product_name = process.extract(obj["string_block"], products)
-    print("PRODUCT NAMEEEEEEEE:        " + str(product_name))
+    # print("PRODUCT NAMEEEEEEEE:        " + str(product_name))
+
     if product_name:
         if product_name[0][1] < 50:
             prod_name = None
         else:
             prod_name=product_name[0][0]
     # prod_name = product_name[0]
-    print(prod_name)
+    # print(prod_name)
 
     if prod_name is not None:
         if re.search(r"(?i)organic", prod_name):

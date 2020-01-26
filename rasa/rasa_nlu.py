@@ -92,9 +92,7 @@ with open(file, 'r') as file:
     string = ""
 
     for line in all_lines:  
-        if "#####" in line or line is all_lines[-1]:
-            string = ""
-            
+        if "#####" in line or line is all_lines[-1]:            
             try:
                 flyer_name = re.findall("\#.*\#", line)[0].replace("#", "").strip()
             except IndexError:
@@ -170,6 +168,7 @@ with open(file, 'r') as file:
                 "string_block":string.strip()
             }
 
+            string = ""
             print(done_items)
             df = process_csv(done_items, pandas_row, df)
             pandas_row += 1

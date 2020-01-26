@@ -25,6 +25,8 @@ for file in files:
 
     contours, hierarchy = cv2.findContours(thresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
 
+    height, width, channels = img.shape
+
     for i, cnt in enumerate(contours):
         x,y,w,h = cv2.boundingRect(cnt)
 
@@ -37,12 +39,24 @@ for file in files:
         x_bottom_right_corner = x + w + 150
         y_bottom_right_corner = y + h + 80
 
+        if x_top_left_corner < 0:
+            x_top_left_corner = 0
+
+        if y_top_left_corner > height:
+            y_top_left_corner = height
+
+        if x_bottom_right_corner > width:
+            x_bottom_right_corner = width
+
+        if y_bottom_right_corner < 0:
+            y_bottom_right_corner = 0
+
         # cv2.rectangle(
         #     img,
         #     (x_top_left_corner, y_top_left_corner),
         #     (x_bottom_right_corner, y_bottom_right_corner),
         #     (0,255,0),
-        #     0
+        #     5
         # )
 
         crop_img = img[
@@ -50,6 +64,7 @@ for file in files:
             x_top_left_corner:x_bottom_right_corner
         ]
 
+<<<<<<< HEAD
         try:
             temp_file = "cropped_images/{}".format(file)
             cv2.imwrite(temp_file, crop_img)
@@ -57,6 +72,17 @@ for file in files:
             os.remove(temp_file)
 
             # cv2.imwrite(temp_file, crop_img) 
+=======
+        # cv2.imwrite("bleh.jpg", img)
+        # # try:
+        temp_file = "cropped_images/{}".format(file)
+
+        cv2.imwrite(temp_file, crop_img)
+        convert_img_to_text(temp_file)
+        os.remove(temp_file)
+
+            # cv2.imwrite(temp_file, crop_img)
+>>>>>>> 3632b85df528938def5fcdf9a6c532889da283a8
 
             # im = Image.open(temp_file)
             # im.save('tifs/{}{}.tif'.format(file.replace(".jpg", ""), i))
@@ -64,9 +90,12 @@ for file in files:
             # convert_img_to_text(temp_file)
             # os.remove(temp_file)
 
-        except cv2.error:
-            with open("error_images.txt", "a") as f:
-                f.write(file)
-    break
+        # except cv2.error:
+        #     with open("error_images.txt", "a") as f:
+        #         f.write(file)
+        #         f.write("\n")
+
+        # break
+    # break
 
     # cv2.imwrite('img.jpg',img)
