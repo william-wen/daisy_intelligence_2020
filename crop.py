@@ -50,14 +50,37 @@ for file in files:
             x_top_left_corner:x_bottom_right_corner
         ]
 
+<<<<<<< HEAD
+
+        temp_file = "cropped_images/contoured_temp{}.jpg".format(i)
+        cv2.imwrite(temp_file, crop_img) 
+        convert_img_to_text(temp_file)
+        os.remove(temp_file)
+
+        # temp_file = "cropped_images/{}{}.jpg".format(file.replace(".jpg", ""), i)
+
+        try:
+            temp_file = "cropped_images/contoured_temp{}.jpg".format(i)
+            cv2.imwrite(temp_file, crop_img) 
+=======
         try:
             temp_file = "cropped_images/{}".format(file)
             cv2.imwrite(temp_file, crop_img)
+>>>>>>> aef57daf9f84bed706e1c9e24700f5b860f8c072
             convert_img_to_text(temp_file)
             os.remove(temp_file)
+
+            # cv2.imwrite(temp_file, crop_img) 
+
+            # im = Image.open(temp_file)
+            # im.save('tifs/{}{}.tif'.format(file.replace(".jpg", ""), i))
+
+            # convert_img_to_text(temp_file)
+            # os.remove(temp_file)
 
         except cv2.error:
             with open("error_images.txt", "a") as f:
                 f.write(file)
+    break
 
     # cv2.imwrite('img.jpg',img)
