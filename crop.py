@@ -2,6 +2,7 @@ import cv2
 import argparse
 from ocr import convert_img_to_text
 import os
+from PIL import Image
 
 # ap = argparse.ArgumentParser()
 
@@ -11,13 +12,15 @@ import os
 # args = vars(ap.parse_args())
 
 files = [
-    "flyer_images/{}".format(file) for file in os.listdir("flyer_images") if ".jpg" in file
+    file for file in os.listdir("flyer_images") if ".jpg" in file
 ]
 
 # Load the image
 for file in files:
     print("FILE PROCESSING: {}".format(file))
-    img = cv2.imread(file)
+
+    img = cv2.imread("flyer_images/{}".format(file))
+
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     gray = cv2.medianBlur(gray,5)
 
@@ -54,9 +57,19 @@ for file in files:
             x_top_left_corner:x_bottom_right_corner
         ]
 
-        temp_file = "cropped_images/contoured_temp{}.jpg".format(i)
-        cv2.imwrite(temp_file, crop_img) 
-        convert_img_to_text(temp_file)
-        os.remove(temp_file)
+        temp_file = "cropped_images/{}{}.jpg".format(file.replace(".jpg", ""), i)
+
+        try:
+            cv2.imwrite(temp_file, crop_img) 
+
+            im = Image.open(temp_file)
+            im.save('tifs/{}{}.tif'.format(file.replace(".jpg", ""), i))
+
+            convert_img_to_text(temp_file)
+            os.remove(temp_file)
+
+        except cv2.error:
+            with open("error_images.txt", "a") as f:
+                f.write(file)
 
     # cv2.imwrite('img.jpg',img)
