@@ -1,0 +1,17 @@
+,flyer_name,product_name,unit_promo_price,uom,least_unit_for_promo,save_per_unit,discount,organic
+0,week_18_page_3,,,[],1,,,0
+1,week_18_page_3,,,[],1,,,0
+2,week_18_page_3,,,['50 ml'],1,,,0
+3,week_18_page_3,,,[],1,,,0
+4,week_18_page_3,,,[],1,,,0
+5,week_18_page_3,,,['750 ml'],1,,0.5,0
+6,week_18_page_3,,,['lb.'],1,,0.5,0
+7,week_18_page_3,,,[],1,,,0
+8,week_18_page_3,,,['lb.'],1,,0.5,0
+9,week_18_page_3,,,[],1,,,0
+10,week_18_page_3,,,['pack'],1,,,0
+11,week_18_page_3,,,[],1,,,0
+12,week_18_page_3,,,"['pack', ' pack']",1,,0.5,0
+13,week_18_page_3,,,[],1,,,0
+14,week_18_page_3,,,['pack'],1,,,0
+15,,,,[],1,,,0

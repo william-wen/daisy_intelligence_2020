@@ -3,6 +3,10 @@ import os
 import re
 from rasa.model import get_model
 from rasa.core.agent import Agent
+import sys
+sys.path.append("..")
+from process_to_csv.processing import process_csv
+import pandas as pd
 
 def load_model():
     """Loads rasa nlu models
@@ -20,10 +24,25 @@ def load_model():
 
     return Agent.load(get_interpreter)
 
+pandas_row = 0
+
+columns = [
+    "flyer_name",
+    "product_name",
+    "unit_promo_price",
+    "uom",
+    "least_unit_for_promo",
+    "save_per_unit",
+    "discount",
+    "organic"
+]
+
+df = pd.DataFrame(columns=columns)
 
 loop = asyncio.get_event_loop()
 model = load_model()
 file = 'test_text.txt'
+
 with open(file, 'r') as file:
     all_lines = file.readlines()
     list_of_units = ["lb", "pound", "bag", "can", "capsule", "g", "mg", "milligrams", "kg", "gallon", "gal", "liter", "l", "ml", "oz", "ounce", "pack", "package", "pint", "pt", "quart", "qt", "serving", "tablet", "inch", "\"", "dozen", "cup", "cups", "c", "piece"]
@@ -70,8 +89,17 @@ with open(file, 'r') as file:
     )
 
 
+    string = ""
+
     for line in all_lines:  
         if "#####" in line or line is all_lines[-1]:
+            string = ""
+            
+            try:
+                flyer_name = re.findall("\#.*\#", line)[0].replace("#", "").strip()
+            except IndexError:
+                flyer_name = None
+
             response = loop.run_until_complete(model.parse_message_using_nlu_interpreter(line))
             entities = response["entities"]
 
@@ -137,10 +165,14 @@ with open(file, 'r') as file:
                 "save": list(set(save_processed)),
                 "quantity": list(set(quantity)),
                 "percent": list(set(percent_processed)),
-                "unit": list(set(unit))
+                "unit": list(set(unit)),
+                "flyer_name":flyer_name,
+                "string_block":string.strip()
             }
 
             print(done_items)
+            df = process_csv(done_items, pandas_row, df)
+            pandas_row += 1
 
             unit, save, percent, quantity, cost = [], [], [], [], []
             save_pocessed, cost_processed, percent_processed = [], [], []
@@ -148,6 +180,7 @@ with open(file, 'r') as file:
 
             # find what the product name is
         else: 
+            string += " " + line
             response = loop.run_until_complete(model.parse_message_using_nlu_interpreter(line))
             entities = response["entities"]
 
@@ -163,3 +196,5 @@ with open(file, 'r') as file:
 
             if response["intent"]["name"] == "percent":
                 percent.append(response["text"])
+
+df.to_csv("output.csv")
