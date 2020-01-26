@@ -10,7 +10,7 @@ def convert_img_to_text(image_path):
 	text = text.lower()
 
 	if len(text.split()) > 5:
-		with open("text_output.txt", "a") as f:
+		with open("PROCESSED.txt", "a") as f:
 			f.write("\n")
 			f.write("#######################{}########################".format(image_path.replace("cropped_images/", "").replace(".jpg", "").strip()))
 			f.write("\n")
