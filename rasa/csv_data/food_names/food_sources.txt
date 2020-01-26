@@ -1,0 +1,9 @@
+Links to Food Datasets:
+
+https://world.openfoodfacts.org/data
+
+http://foodb.ca/downloads
+
+https://data.nal.usda.gov/dataset/usda-branded-food-products-database
+
+https://fdc.nal.usda.gov/download-datasets.html

@@ -57,6 +57,16 @@ for file in files:
             x_top_left_corner:x_bottom_right_corner
         ]
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+        temp_file = "cropped_images/contoured_temp{}.jpg".format(i)
+        cv2.imwrite(temp_file, crop_img) 
+        convert_img_to_text(temp_file)
+        os.remove(temp_file)
+    break
+=======
+=======
+>>>>>>> d7b8154cf50545c3b168ee008de466219b5a58b1
         temp_file = "cropped_images/{}{}.jpg".format(file.replace(".jpg", ""), i)
 
         try:
@@ -72,4 +82,8 @@ for file in files:
             with open("error_images.txt", "a") as f:
                 f.write(file)
 
+<<<<<<< HEAD
+>>>>>>> d7b8154cf50545c3b168ee008de466219b5a58b1
+=======
+>>>>>>> d7b8154cf50545c3b168ee008de466219b5a58b1
     # cv2.imwrite('img.jpg',img)
