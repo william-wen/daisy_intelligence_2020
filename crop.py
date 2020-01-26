@@ -34,10 +34,10 @@ for file in files:
 
     for i, cnt in enumerate(contours):
         x,y,w,h = cv2.boundingRect(cnt)
-        
+
         if h < 150 or w < 150:
             continue
-        
+
         x_top_left_corner = x - 150
         y_top_left_corner = y - 30
 
@@ -53,28 +53,14 @@ for file in files:
         # )
 
         crop_img = img[
-            y_top_left_corner:y_bottom_right_corner, 
+            y_top_left_corner:y_bottom_right_corner,
             x_top_left_corner:x_bottom_right_corner
         ]
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-        temp_file = "cropped_images/contoured_temp{}.jpg".format(i)
-        cv2.imwrite(temp_file, crop_img) 
-        convert_img_to_text(temp_file)
-        os.remove(temp_file)
-    break
-=======
-=======
->>>>>>> d7b8154cf50545c3b168ee008de466219b5a58b1
-        temp_file = "cropped_images/{}{}.jpg".format(file.replace(".jpg", ""), i)
-
         try:
-            cv2.imwrite(temp_file, crop_img) 
 
-            im = Image.open(temp_file)
-            im.save('tifs/{}{}.tif'.format(file.replace(".jpg", ""), i))
-
+            temp_file = "cropped_images/contoured_temp{}.jpg".format(i)
+            cv2.imwrite(temp_file, crop_img)
             convert_img_to_text(temp_file)
             os.remove(temp_file)
 
@@ -82,8 +68,4 @@ for file in files:
             with open("error_images.txt", "a") as f:
                 f.write(file)
 
-<<<<<<< HEAD
->>>>>>> d7b8154cf50545c3b168ee008de466219b5a58b1
-=======
->>>>>>> d7b8154cf50545c3b168ee008de466219b5a58b1
     # cv2.imwrite('img.jpg',img)
