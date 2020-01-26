@@ -34,10 +34,10 @@ for file in files:
 
     for i, cnt in enumerate(contours):
         x,y,w,h = cv2.boundingRect(cnt)
-        
+
         if h < 150 or w < 150:
             continue
-        
+
         x_top_left_corner = x - 150
         y_top_left_corner = y - 30
 
@@ -53,10 +53,11 @@ for file in files:
         # )
 
         crop_img = img[
-            y_top_left_corner:y_bottom_right_corner, 
+            y_top_left_corner:y_bottom_right_corner,
             x_top_left_corner:x_bottom_right_corner
         ]
 
+<<<<<<< HEAD
 
         temp_file = "cropped_images/contoured_temp{}.jpg".format(i)
         cv2.imwrite(temp_file, crop_img) 
@@ -68,6 +69,12 @@ for file in files:
         try:
             temp_file = "cropped_images/contoured_temp{}.jpg".format(i)
             cv2.imwrite(temp_file, crop_img) 
+=======
+        try:
+
+            temp_file = "cropped_images/contoured_temp{}.jpg".format(i)
+            cv2.imwrite(temp_file, crop_img)
+>>>>>>> aef57daf9f84bed706e1c9e24700f5b860f8c072
             convert_img_to_text(temp_file)
             os.remove(temp_file)
 
