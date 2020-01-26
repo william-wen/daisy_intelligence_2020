@@ -4,13 +4,6 @@ from ocr import convert_img_to_text
 import os
 from PIL import Image
 
-# ap = argparse.ArgumentParser()
-
-# ap.add_argument("-i", "--image", required=True,
-# 	help="path to input image to be OCR'd")
-
-# args = vars(ap.parse_args())
-
 files = [
     file for file in os.listdir("flyer_images") if ".jpg" in file
 ]
@@ -22,7 +15,7 @@ for file in files:
     img = cv2.imread("flyer_images/{}".format(file))
 
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    gray = cv2.medianBlur(gray,5)
+    gray = cv2.medianBlur(gray, 5)
 
     thresh = cv2.adaptiveThreshold(gray, 255, 1, 1, 11, 2)
     thresh_color = cv2.cvtColor(thresh,cv2.COLOR_GRAY2BGR)
@@ -58,8 +51,7 @@ for file in files:
         ]
 
         try:
-
-            temp_file = "cropped_images/contoured_temp{}.jpg".format(i)
+            temp_file = "cropped_images/{}".format(file)
             cv2.imwrite(temp_file, crop_img)
             convert_img_to_text(temp_file)
             os.remove(temp_file)
