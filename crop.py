@@ -10,14 +10,15 @@ import os
 
 # args = vars(ap.parse_args())
 
-files = [file for file in os.listdir("flyer_images") if ".jpg" in file]
+files = [
+    "flyer_images/{}".format(file) for file in os.listdir("flyer_images") if ".jpg" in file
+]
 
 # Load the image
-for file in file:
+for file in files:
+    print("FILE PROCESSING: {}".format(file))
     img = cv2.imread(file)
-
-    gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     gray = cv2.medianBlur(gray,5)
 
     thresh = cv2.adaptiveThreshold(gray, 255, 1, 1, 11, 2)
